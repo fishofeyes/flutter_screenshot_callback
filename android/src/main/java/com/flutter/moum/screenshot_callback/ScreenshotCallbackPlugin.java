@@ -36,6 +36,7 @@ public class ScreenshotCallbackPlugin implements MethodCallHandler, FlutterPlugi
         this.applicationContext = applicationContext;
         channel = new MethodChannel(messenger, "flutter.moum/screenshot_callback");
         channel.setMethodCallHandler(this);
+        handler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -51,7 +52,6 @@ public class ScreenshotCallbackPlugin implements MethodCallHandler, FlutterPlugi
     public void onMethodCall(MethodCall call, Result result) {
 
         if (call.method.equals("initialize")) {
-            handler = new Handler(Looper.getMainLooper());
 
             detector = new ScreenshotDetector(applicationContext, new Function1<String, Unit>() {
                 @Override
